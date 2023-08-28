@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes, useCallback, useContext } from 'react';
+import { FC, HTMLAttributes, useCallback, useContext, useState } from 'react';
+import { faEllipsisVertical, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { AppContext } from 'store/AppContext';
 import { Contact } from 'common/type/Contact';
@@ -7,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MessageType } from 'common/type/Message';
 import classNames from 'classnames';
 import classes from './ContactCard.module.scss';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 
@@ -23,7 +23,11 @@ const ContactCard: FC<ContactCardProps & HTMLAttributes<HTMLDivElement>> = ({
 
   /* Context */
   const { message$ } = useContext(AppContext);
-  const { deleteContact } = useContext(ContactContext);
+  const { createContact, deleteContact, getContacts } =
+    useContext(ContactContext);
+
+  /* State */
+  const [menuOpened, setMenuOpened] = useState<boolean>(false);
 
   /* Props */
   const { id, first_name, last_name, job, description } = data;
@@ -32,6 +36,7 @@ const ContactCard: FC<ContactCardProps & HTMLAttributes<HTMLDivElement>> = ({
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       router.push(`/contact/update/${id}`);
+      setMenuOpened(false);
     },
     [id, router]
   );
@@ -50,8 +55,26 @@ const ContactCard: FC<ContactCardProps & HTMLAttributes<HTMLDivElement>> = ({
         msg: 'Delete cannot be undone',
         okCallback: handleDeleteConfirm,
       });
+      setMenuOpened(false);
     },
     [message$, handleDeleteConfirm]
+  );
+
+  const handleDuplicateClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      createContact(
+        {
+          first_name,
+          last_name,
+          job,
+          description,
+        },
+        getContacts
+      );
+      setMenuOpened(false);
+    },
+    [first_name, last_name, job, description, createContact, getContacts]
   );
 
   const handleContactClick = useCallback(
@@ -60,6 +83,14 @@ const ContactCard: FC<ContactCardProps & HTMLAttributes<HTMLDivElement>> = ({
       router.push(`/contact/${id}`);
     },
     [router, id]
+  );
+
+  const handleMenuClicked = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+      e.stopPropagation();
+      setMenuOpened((prev) => !prev);
+    },
+    []
   );
 
   return (
@@ -80,25 +111,47 @@ const ContactCard: FC<ContactCardProps & HTMLAttributes<HTMLDivElement>> = ({
             aria-label="name"
           >{`${first_name} ${last_name}`}</span>
         </div>
-        <div className={classes.actions}>
+        <div className={classNames(classes.menu, menuOpened && classes.opened)}>
+          {menuOpened && (
+            <div className={classes.menuBackdrop} onClick={handleMenuClicked} />
+          )}
           <button
-            className={classes.actionBtn}
+            className={classNames(classes.menuBtn, 'iconBtn')}
             type="button"
-            aria-label="Edit Contact"
-            title="Edit Contact"
-            onClick={handleEditClick}
+            aria-label="menu"
+            onClick={handleMenuClicked}
           >
-            Edit
+            <FontAwesomeIcon icon={faEllipsisVertical} />
           </button>
-          <button
-            className={classNames(classes.actionBtn, classes.deleteBtn)}
-            type="button"
-            aria-label="Delete Contact"
-            title="Delete Contact"
-            onClick={handleDeleteClick}
-          >
-            Delete
-          </button>
+          <div className={classes.menuList}>
+            <button
+              className={classes.actionBtn}
+              type="button"
+              aria-label="Edit Contact"
+              title="Edit Contact"
+              onClick={handleEditClick}
+            >
+              Edit
+            </button>
+            <button
+              className={classes.actionBtn}
+              type="button"
+              aria-label="Duplicate Contact"
+              title="Duplicate Contact"
+              onClick={handleDuplicateClick}
+            >
+              Duplicate
+            </button>
+            <button
+              className={classNames(classes.actionBtn, classes.deleteBtn)}
+              type="button"
+              aria-label="Delete Contact"
+              title="Delete Contact"
+              onClick={handleDeleteClick}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
       <div className={classes.detailInfo}>
