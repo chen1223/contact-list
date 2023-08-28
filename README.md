@@ -1,3 +1,7 @@
+# Demo
+
+A live demo is available at [https://contact-list-billchenweb-gmailcom.vercel.app/](https://contact-list-billchenweb-gmailcom.vercel.app/)
+
 # Prerequisite
 
 This project runs on Node version 18. Please use nvm to install node version 18 or install node 18 directly from the [NodeJS](https://nodejs.org/en) website.
