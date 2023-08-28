@@ -1,0 +1,22 @@
+.root {
+  z-index: 1000;
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+
+.msgEnter {
+  opacity: 0;
+}
+.msgEnterActive {
+  opacity: 1;
+  transition: opacity 250ms;
+}
+
+.msgExit {
+  opacity: 1;
+}
+.msgExitActive {
+  opacity: 0;
+  transition: opacity 250ms;
+}

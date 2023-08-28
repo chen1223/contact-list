@@ -1,0 +1,7 @@
+/* Media Query cannot read css variables, so we fall back to sass variables */
+$size-step: 0.5px;
+$sm-device-size: 576px;
+$md-device-size: 768px;
+$lg-device-size: 992px;
+$xl-device-size: 1200px;
+$xxl-device-size: 1400px;

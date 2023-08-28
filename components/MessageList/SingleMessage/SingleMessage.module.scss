@@ -1,0 +1,88 @@
+.root {
+  width: max(15vw, 250px);
+  opacity: 0.9;
+  color: white;
+  z-index: 1001;
+  padding: 0.5rem 0;
+  border-radius: var(--border-radius);
+  position: absolute;
+  right: 0;
+  transition: all 200ms;
+  &.success {
+    background-color: var(--color-success);
+  }
+  &.error {
+    background-color: var(--color-error);
+  }
+  &.info {
+    background-color: var(--color-info);
+  }
+  &.confirm {
+    background-color: white;
+    opacity: 1;
+    color: var(--color-black);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    padding: 1rem 0;
+    width: max(30vw, 400px);
+    box-shadow: 2px 2px 0 var(--color-shadow);
+    .header {
+      margin-bottom: 0.5rem;
+    }
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+  }
+  .header, .body, .footer {
+    padding: 0 1.25rem;
+  }
+  /* Header */
+  .header {
+    text-align: center;
+    .title {
+      color: currentColor;
+      font-size: clamp(1.2rem, 1.5rem, 20px);
+    }
+  }
+  /* Body */
+  .body {
+    min-height: 80px;
+    padding: 0.5rem 1.25rem;
+    .msg {
+      white-space: pre-wrap;
+      padding: 0;
+      margin: 0;
+      color: currentColor;
+      font-size: 16px;
+      line-height: 1.05rem;
+    }
+  }
+}
+.msgBackdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.backdropEnter {
+  opacity: 0;
+}
+.backdropEnterActive {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+.backdropExit {
+  opacity: 1;
+}
+.backdropExitActive {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}

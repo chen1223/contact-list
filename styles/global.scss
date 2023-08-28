@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;600;700;900&display=swap');
+@import 'styles/breakpoints.scss';
+
+* {
+  box-sizing: border-box;
+
+  --padding: 0.75rem;
+  --max-page-width: 1400px;
+  --border-radius: 5px;
+
+  /* Color*/
+  --color-black: #333;
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-info: #2196f3;
+  --color-shadow: rgba(0, 0, 0, 0.2);
+  --color-dark-grey: #3b3b3b;
+  --color-grey: #c0c0c0;
+  --color-medium-grey: #7c7c7c;
+}
+
+html, body {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--color-black);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border-radius: var(--border-radius);
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+  &:hover {
+    background: var(--color-black);
+    color: white;
+  }
+  &.iconBtn {
+    box-shadow: none;
+    border: none;
+    background: none;
+    font-size: 2rem;
+  }
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+}
+
+input {
+  box-shadow: var(--box-shadow);
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  &:active, &:focus, &:focus-visible {
+    border-color: var(--color-medium-grey);
+    outline: none;
+  }
+}
+
+textarea {
+  box-shadow: var(--box-shadow);
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;;
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  resize: none;
+  &:active, &:focus {
+    border-color: var(--color-medium-grey);
+    outline: none;
+  }
+}
+
+@media (min-width: ($lg-device-size - $size-step)) {
+  * {
+    --padding: 1.5rem 2rem;
+  }
+}
+
+@media (min-width: ($xl-device-size - $size-step)) {
+  * {
+    --padding: 1.5rem 2rem;
+  }
+  html, body {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: ($xxl-device-size - $size-step)) {
+  * {
+    --padding: 1.5rem 2rem;
+  }
+  html, body {
+    font-size: 22px;
+  }
+}
+
+

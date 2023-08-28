@@ -1,0 +1,49 @@
+@import 'styles/breakpoints.scss';
+
+/* Page Title */
+.titleRow {
+  text-align: center;
+  position: relative;
+  .sortBtn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+  }
+}
+/* Contact List */
+.contactList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .contactItem {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+.detailEnter {
+  opacity: 0;
+}
+.detailEnterActive {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.detailExit {
+  opacity: 1;
+}
+.detailExitActive {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+@media (min-width: ($lg-device-size - $size-step)) {
+  .contactList {
+    .contactItem {
+      width: calc(50% - 1rem);
+    }
+  }
+}
+
