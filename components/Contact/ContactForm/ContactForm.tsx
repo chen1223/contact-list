@@ -54,7 +54,7 @@ const ContactForm: FC<ContactFormProps & HTMLAttributes<HTMLFormElement>> = ({
     if (!isValid()) {
       message$.next({
         id: uuid(),
-        type: MessageType.ERROR,
+        type: MessageType.INFO,
         msg: 'First Name, Last Name, and Job cannot be empty',
       });
       return;
